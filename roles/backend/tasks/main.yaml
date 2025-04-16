@@ -33,19 +33,30 @@
 #     remote_src: yes
 
 - name: run app pre-requisites
+  tags:
+  - deployment
   ansible.builtin.import_role:
     name: common
     tasks_from: app_pre_req
 
-- name: install npm dependencies
-  ansible.builtin.command: npm install
-  args:
-    chdir: /app
+# - name: install npm dependencies
+#   ansible.builtin.command: npm install
+#   args:
+#     chdir: /app
 
-- name: copy backend code
+- name: copy backend service
   ansible.builtin.template:
     src: backend.service.j2
     dest: /etc/systemd/system/backend.service
+
+- name: daemon reload
+  ansible.builtin.systemd_service:
+    daemon_reload: true 
+
+- name: enable backend service
+  ansible.builtin.service:
+    name: backend
+    enabled: yes       
 
 - name: install python mysql dependencies
   ansible.builtin.pip:
@@ -56,19 +67,17 @@
 
 - name: import data into mysql
   community.mysql.mysql_db:
-    login_user: root
+    login_user: "{{ login_user }}"
     login_password: "{{ login_password }}"
     login_host: "{{ login_host }}"
     target: /app/schema/backend.sql
     state: import
     name: all 
-
-- name: daemon reload
-  ansible.builtin.systemd_service:
-    daemon_reload: true
     
-- name: start and enable backemd service
+- name: start and enable backend service
+  tags:
+  - deployment
   ansible.builtin.service:
     name: backend
-    state: started
+    state: restarted
     enabled: yes 
