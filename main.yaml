@@ -3,7 +3,11 @@
   connection: local
   vars_files:
   - "variables-{{ env }}.yaml"
+  tasks:
+    - name: Debug appVersion
+      debug:
+        msg: "appVersion is {{ appVersion }}"
   become: yes
   roles:
-  - "{{ component }}"
+    - "{{ component }}"
 
