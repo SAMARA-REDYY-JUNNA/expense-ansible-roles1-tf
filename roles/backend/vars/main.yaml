@@ -1,7 +1,7 @@
 
 app_location: /app
 component: backend
-login_user: root 
+# login_user: root 
 login_host: db-dev.mydaws.online
 login_password: ExpenseApp1
 DB_HOST: db-dev.mydaws.online
