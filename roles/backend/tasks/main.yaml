@@ -39,10 +39,10 @@
     name: common
     tasks_from: app_pre_req
 
-# - name: install npm dependencies
-#   ansible.builtin.command: npm install
-#   args:
-#     chdir: /app
+- name: install npm dependencies
+  ansible.builtin.command: npm install
+  args:
+    chdir: /app
 
 - name: copy backend service
   ansible.builtin.template:
@@ -58,18 +58,20 @@
     name: backend
     enabled: yes       
 
-- name: install python mysql dependencies
+- name: install pip dependies
   ansible.builtin.pip:
-    name:
-    - PyMysql
-    - cryptography
+    name: "{{ item }}"
     executable: pip3.9
+  loop:
+  - PyMySQL
+  - cryptography
+
 
 - name: import data into mysql
   community.mysql.mysql_db:
-    login_user: "{{ login_user }}"
-    login_password: "{{ login_password }}"
-    login_host: "{{ DB_HOST }}"
+    login_user: root
+    login_password: ExpenseApp1 
+    login_host: db-dev.mydaws.online
     target: /app/schema/backend.sql
     state: import
     name: all 
