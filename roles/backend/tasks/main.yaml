@@ -1,84 +1,139 @@
-- name: disable default nodejs
+# - name: disable default nodejs
+#   ansible.builtin.command: dnf module disable nodejs -y
+
+# - name: enable nodejs:20
+#   ansible.builtin.command: dnf module enable nodejs:20 -y
+
+# - name: install nodejs
+#   ansible.builtin.dnf:
+#     name: "{{ item }}"
+#     state: installed
+#   loop:
+#     - nodejs
+#     - mysql
+
+# - name: create expense user
+#   ansible.builtin.user:
+#     name: expense
+
+# # - name: create app directory
+# #   ansible.builtin.file:
+# #     path: /app
+# #     state: directory
+
+# # - name: download backend code
+# #   ansible.builtin.get_url:
+# #     url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+# #     dest: /tmp/backend.zip 
+
+# # - name: unzip backend code
+# #   ansible.builtin.unarchive:
+# #     src: /tmp/backend.zip
+# #     dest: /app
+# #     remote_src: yes
+
+# - name: run app pre-requisites
+#   tags:
+#   - deployment
+#   ansible.builtin.import_role:
+#     name: common
+#     tasks_from: app_pre_req
+
+# - name: install npm dependencies
+#   ansible.builtin.command: npm install
+#   args:
+#     chdir: /app
+
+# - name: copy backend service
+#   ansible.builtin.template:
+#     src: backend.service.j2
+#     dest: /etc/systemd/system/backend.service
+
+# - name: daemon reload
+#   ansible.builtin.systemd_service:
+#     daemon_reload: true 
+
+# - name: enable backend service
+#   ansible.builtin.service:
+#     name: backend
+#     enabled: yes       
+
+# - name: install pip dependies
+#   ansible.builtin.pip:
+#     name: "{{ item }}"
+#     executable: pip3.9
+#   loop:
+#   - PyMySQL
+#   - cryptography
+
+
+# - name: import data into mysql
+#   community.mysql.mysql_db:
+#     login_user: root
+#     login_password: ExpenseApp1 
+#     login_host: db-dev.mydaws.online
+#     target: /app/schema/backend.sql
+#     state: import
+#     name: all 
+    
+# - name: start and enable backend service
+#   tags:
+#   - deployment
+#   ansible.builtin.service:
+#     name: backend
+#     state: restarted
+
+- name: disable current nodejs
   ansible.builtin.command: dnf module disable nodejs -y
 
-- name: enable nodejs:20
+- name: enable nodejs 20
   ansible.builtin.command: dnf module enable nodejs:20 -y
 
 - name: install nodejs
-  ansible.builtin.dnf:
+  ansible.builtin.package:
     name: "{{ item }}"
-    state: installed
+    state: present
   loop:
-    - nodejs
-    - mysql
+  - nodejs
+  - mysql
 
 - name: create expense user
   ansible.builtin.user:
     name: expense
 
-# - name: create app directory
-#   ansible.builtin.file:
-#     path: /app
-#     state: directory
-
-# - name: download backend code
-#   ansible.builtin.get_url:
-#     url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
-#     dest: /tmp/backend.zip 
-
-# - name: unzip backend code
-#   ansible.builtin.unarchive:
-#     src: /tmp/backend.zip
-#     dest: /app
-#     remote_src: yes
-
-- name: run app pre-requisites
-  tags:
+- name: Install dependencies
+  tags: 
   - deployment
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: app_pre_req
-
-- name: install npm dependencies
-  ansible.builtin.command: npm install
-  args:
-    chdir: /app
+  community.general.npm:
+    path: /app
 
 - name: copy backend service
-  ansible.builtin.template:
+  ansible.builtin.template: #it will search in templates folder
     src: backend.service.j2
     dest: /etc/systemd/system/backend.service
 
-- name: daemon reload
-  ansible.builtin.systemd_service:
-    daemon_reload: true 
-
-- name: enable backend service
-  ansible.builtin.service:
-    name: backend
-    enabled: yes       
-
-- name: install pip dependies
+- name: install python libs
   ansible.builtin.pip:
     name: "{{ item }}"
     executable: pip3.9
   loop:
-  - PyMySQL
   - cryptography
+  - PyMySQL
 
-
-- name: import data into mysql
+- name: import mysql data
   community.mysql.mysql_db:
-    login_user: root
-    login_password: ExpenseApp1 
-    login_host: db-dev.mydaws.online
-    target: /app/schema/backend.sql
     state: import
-    name: all 
-    
-- name: start and enable backend service
-  tags:
+    name: all
+    login_user: "{{ MYSQL_USER }}"
+    login_password: "{{ MYSQL_PASSWORD }}"
+    login_host: "{{ MYSQL_HOST }}"
+    target: /app/schema/backend.sql
+
+- name: daemon reload and restart service
+  tags: 
   - deployment
-  ansible.builtin.service:
-    name: backend
+  ansible.builtin.systemd_service:
+    enabled: true
     state: restarted
+    daemon_reload: true
+    name: backend
