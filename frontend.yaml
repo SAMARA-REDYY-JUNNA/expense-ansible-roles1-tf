@@ -1,5 +1,8 @@
 - name: configure frontend server
-  hosts: frontend
+  hosts: all
+  connection: local
+  vars_files:
+    - variables-dev.yaml
   become: yes
   roles:
   - frontend
