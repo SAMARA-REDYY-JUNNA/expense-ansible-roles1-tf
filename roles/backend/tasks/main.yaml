@@ -101,11 +101,11 @@
   ansible.builtin.user:
     name: expense
 
-- name: Install dependencies
-  tags: 
-  - deployment
-  community.general.npm:
-    path: /app
+#  - name: Install dependencies
+#   tags: 
+#   - deployment
+#   community.general.npm:
+#     path: /app
 
 - name: copy backend service
   ansible.builtin.template: #it will search in templates folder
