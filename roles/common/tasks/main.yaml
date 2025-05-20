@@ -45,8 +45,8 @@
 
 - name: download the artifact from nexus
   ansible.builtin.get_url:
-    url: "http://{{ nexus_url }}/repository/backend/com/expense/backend/{{ app_version }}/backend-{{ app_version }}.zip"
-    dest: /tmp/backend.zip
+    url: "http://{{ nexus_url }}/repository/frontend/com/expense/frontend/{{ app_Version }}/frontend-{{ app_Version }}.zip"
+    dest: /tmp/frontend.zip
 
 
       
