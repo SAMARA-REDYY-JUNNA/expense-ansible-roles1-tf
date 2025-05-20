@@ -101,6 +101,12 @@
   ansible.builtin.user:
     name: expense
 
+- name: import from common role
+  include_role: 
+    name: common
+    tasks_from: main
+
+
 #  - name: Install dependencies
 #   tags: 
 #   - deployment
