@@ -7,7 +7,7 @@ component: backend
 # DB_HOST: db-dev.mydaws.online
 # BACKEND_API_URL: backend.app-dev.mydaws.online
 # nexus_url: nexus.mydaws.online:8080
-MYSQL_HOST: "mysql-dev.mydaws.fun"
+MYSQL_HOST: mysql-dev.mydaws.fun
 MYSQL_USER: root
 MYSQL_PASSWORD: ExpenseApp1
 # APP_LOCAION: /app
