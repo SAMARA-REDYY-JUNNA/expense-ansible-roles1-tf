@@ -43,16 +43,11 @@
 #     remote_src: yes
 
 
-# - name: download the artifact from nexus
-#   ansible.builtin.unarchive:
-#     src: "http://{{ nexus_url }}/repository/{{ component }}/com/expense/{{ component }}/{{ appVersion }}/{{ component }}-{{ appVersion }}.zip"
-#     dest: "{{ APP_LOCATION }}"
-#     remote_src: yes  
-
 - name: download the artifact from nexus
   ansible.builtin.unarchive:
-    src: "http://{{ admin }}:{{ Samara@9666 }}@{{ nexus_url }}/repository/{{ component }}/com/expense/{{ component }}/{{ appVersion }}/{{ component }}-{{ appVersion }}.zip"
-
+    src: "http://{{ nexus_url }}/repository/{{ component }}/com/expense/{{ component }}/{{ appVersion }}/{{ component }}-{{ appVersion }}.zip"
     dest: "{{ APP_LOCATION }}"
-    remote_src: yes       
+    remote_src: yes  
+
+      
     
