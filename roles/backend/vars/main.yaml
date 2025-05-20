@@ -1,6 +1,6 @@
 
-app_location: /app
-component: backend
+# app_location: /app
+# component: backend
 # login_user: root 
 # login_host: "mysql-dev.mydaws.fun"
 # login_password: ExpenseApp1
@@ -10,5 +10,5 @@ component: backend
 MYSQL_HOST: mysql-dev.mydaws.fun
 MYSQL_USER: root
 MYSQL_PASSWORD: ExpenseApp1
-# APP_LOCAION: /app
-# COMPONENT: backend
+APP_LOCAION: /app
+COMPONENT: backend
