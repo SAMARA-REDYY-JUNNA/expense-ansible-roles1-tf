@@ -10,5 +10,5 @@
 MYSQL_HOST: mysql-dev.mydaws.fun
 MYSQL_USER: root
 MYSQL_PASSWORD: ExpenseApp1
-APP_LOCAION: /app
+APP_LOCATION: /app
 COMPONENT: backend
