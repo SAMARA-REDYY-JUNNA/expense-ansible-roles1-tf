@@ -1,4 +1,4 @@
 # BACKEND_HOST: "backend.app-dev.mydaws.fun"
-component: frontend
-app_location: /usr/share/nginx/html
+COMPONENT: frontend
+APP_LOCATION: /usr/share/nginx/html
 BACKEND_API_URL: backend.app-dev.mydaws.fun
