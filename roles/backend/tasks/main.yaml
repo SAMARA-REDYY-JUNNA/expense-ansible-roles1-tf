@@ -129,7 +129,7 @@
     login_host: "{{ MYSQL_HOST }}"
     target: /app/schema/backend.sql
 
-- name: daemon reload
+- name: daemon reload backend service
   ansible.builtin.systemd_service:
     enabled: true
     state: restarted
