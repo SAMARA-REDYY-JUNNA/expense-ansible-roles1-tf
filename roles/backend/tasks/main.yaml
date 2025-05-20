@@ -125,8 +125,8 @@
     state: import
     name: all
     login_user: "{{ login_user }}"
-    MYSQL_PASSWORD: "{{ MYSQL_PASSWORD }}"
-    MYSQL_HOST: "{{ MYSQL_HOST }}"
+    login_password : "{{ login_password }}"
+    login_host: "{{ login_host }}"
     target: /app/schema/backend.sql
 
 - name: daemon reload backend service
