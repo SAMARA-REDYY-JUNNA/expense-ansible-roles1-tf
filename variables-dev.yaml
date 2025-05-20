@@ -1,6 +1,6 @@
 login_user: root 
 login_host: mysql-dev.mydaws.fun
 login_password: ExpenseApp1
-DB_HOST: mysql-dev.mydaws.fun
+MYSQL_HOST: mysql-dev.mydaws.fun
 BACKEND_API_URL: backend.app-dev.mydaws.fun
 nexus_url: nexus.mydaws.fun:8081
