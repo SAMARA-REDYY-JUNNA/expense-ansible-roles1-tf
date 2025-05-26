@@ -34,7 +34,7 @@
     path: "{{ APP_LOCATION }}" # backend folder is /app, frontend /usr/share/nginx/html
     state: directory
 
-# - name: download app code
+# - name: download app code none
 #   tags: 
 #   - deployment
 #   ansible.builtin.unarchive:
@@ -46,7 +46,7 @@
 - name: download the artifact from nexus
   ansible.builtin.unarchive:
     url: "http://{{ nexus_url }}/repository/frontend/com/expense/frontend/{{ app_version }}/frontend-{{ app_version }}.zip"
-    dest: /usr/share/nginx/html
+    dest: /usr/share/nginx/html 
 
 
       
