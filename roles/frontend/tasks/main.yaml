@@ -53,11 +53,17 @@
     name: nginx
     state: started
     enabled: yes
-  
+    
 - name: include common role
   include_role:
     name: common
     #tasks_from: main
+
+- name: unzip the code 
+  ansible.builtin.unarchive:
+    src: /tmp/backend.zip
+    dest: /app
+    remote_src: yes     
 
 
 # trigger handler through notify
