@@ -59,11 +59,11 @@
     name: common
     #tasks_from: main
 
-- name: unzip the code 
-  ansible.builtin.unarchive:
-    src: /tmp/frontend.zip
-    dest: /app
-    remote_src: yes     
+# - name: unzip the code 
+#   ansible.builtin.unarchive:
+#     src: /tmp/frontend.zip
+#     dest: /app
+#     remote_src: yes     
 
 
 # trigger handler through notify
