@@ -76,8 +76,8 @@
   ansible.builtin.service:
     name: nginx
     state: restarted
-  # notify:
-  #   - restart nginx
+  notify:
+    - restart nginx
 
   
   
