@@ -46,7 +46,7 @@
 - name: download the artifact from nexus
   ansible.builtin.unarchive:
     src: "http://{{ nexus_url }}/repository/backend/com/expense/backend/{{ app_version }}/backend-{{ app_version }}.zip"
-    dest: /app
+    dest: /
     remote_src: yes
 
 
